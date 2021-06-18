@@ -1,3 +1,9 @@
+<?php
+    if (!empty($_GET["message"])) {
+        $msg = $_GET["message"];
+    };
+    
+?>
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">

@@ -6,7 +6,7 @@
     include("inc/header.inc.php");
     $pseudo = "";  
     $mdp = "";
-    $url = "",
+    $url = "";
 
     if (!empty($_POST)) {
         $pseudo = $_POST["pseudo"];
@@ -41,7 +41,7 @@
             $url = URL . "index.php?pseudo=$pseudo";
             header('Location:' .$url );
         }else{
-            echo "<p>la requete n'a pas aboutit</p>";
+            echo "<p>Votre pseudo ou votre mot de passe est inconnu</p>";
         };
     };
     include("inc/footer.inc.php");
