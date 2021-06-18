@@ -19,8 +19,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="<?= URL; ?>produit.php">Produit</a>
                     </li>
-                </ul>                
+                </ul>             
             </div>
         </div>
     </nav>
 </header>
+<div class="message"><?= $msg ?></div>

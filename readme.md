@@ -25,3 +25,8 @@
         -> un dossier images qui contient toutes nos images
 
 
+# Création d'un nouveau membre (formulaire)
+
+    -> Créer le formulaire dans inscription.php
+    -> Créer une page traitement-insciption.php
+    -> 
