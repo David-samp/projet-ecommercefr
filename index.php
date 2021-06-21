@@ -5,7 +5,10 @@
     include("inc/head.inc.php");
     include("inc/header.inc.php");
     
-    $pseudo = "";
+    if (isset($_SESSION["is_connect"]) AND isset($_SESSION["is_connect"])==true){
+        $pseudoLog = $_SESSION["pseudo"];
+        echo "<h3> Bienvenu $pseudoLog </h3>";
+    } 
 
 ?>
 

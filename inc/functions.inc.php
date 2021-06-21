@@ -14,7 +14,7 @@ function debug(array $listeADebugger){
 // @param array $listeTest, $nbrCaractere
 // @return null
 function testInput($listeTest, $nbrCaractere) {
-    if (strlen($listeTest)>4 AND strlen($listeTest)<=$nbrCaractere) {
+    if (strlen($listeTest)>=4 AND strlen($listeTest)<=$nbrCaractere) {
         return true;
     } else {
         return false;

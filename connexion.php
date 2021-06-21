@@ -2,6 +2,21 @@
 
     include("inc/init.inc.php");
     include("inc/functions.inc.php");
+
+    if (isset($_GET["message"]) AND $_GET["message"] == "inscr-success"){
+        $msg = "<div class=\"alert alert-success w-50 mx-auto m-5 \" role=\"alert\">
+        Vous avez bien été ajouté à la liste des utilisateurs !
+        </div>";
+    } else if (isset($_GET["message"]) AND $_GET["message"] == "erreur-connexion") {
+        $msg = "<div class=\"alert alert-danger w-50 mx-auto m-5 \" role=\"alert\">
+        Votre pseudo ou votre mot de passe est inconnu 
+        </div>";
+    }else if (isset($_GET["message"]) AND $_GET["message"] == "erreur-requete") {
+        $msg = "<div class=\"alert alert-danger w-50 mx-auto m-5 \" role=\"alert\">
+        Veuillez vous reconnecter
+        </div>";
+    } 
+
     include("inc/head.inc.php");
     include("inc/header.inc.php");
     $pseudo = "";  
@@ -38,10 +53,12 @@
 <?php
     if (isset($resultat)){
         if ($resultat AND $enregistrement->rowCount() != 0){
-            $url = URL . "index.php?pseudo=$pseudo";
+            $url = URL . "index.php";
             header('Location:' .$url );
+            $_SESSION["is_connect"]=true;
+            $_SESSION["pseudo"]= $pseudo;
         }else{
-            echo "<p>Votre pseudo ou votre mot de passe est inconnu</p>";
+            header("Location:". URL . "Connexion.php?message=erreur-connexion");
         };
     };
     include("inc/footer.inc.php");

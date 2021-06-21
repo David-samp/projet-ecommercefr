@@ -9,6 +9,13 @@
     if (!empty($_POST)) {
         if (testInput($_POST["pseudo"],20)) {
             $pseudo = $_POST["pseudo"];
+            $recherchePseudo = $pdo->prepare("SELECT pseudo FROM user WHERE pseudo=?");
+            $retour = $recherchePseudo->execute([$pseudo]);
+            if ($resultat) {
+                $pseudo = $_POST["pseudo"];
+            } else {
+                header("Location:". URL . "inscription.php?message=Ce pseudo n'est pas disponible");
+            }
         }else {
             header("Location:". URL . "inscription.php?message=Le nombre de caractère du pseudo ne correspond pas");
         };
@@ -19,7 +26,7 @@
         };
         if (testInput($_POST["prenom"],30)) {
             $prenom = $_POST["prenom"];
-         }else {
+        }else {
             header("Location:" . URL . "inscription.php?message=Le nombre de caractère du prenom ne correspond pas");
         };
         if (testInput($_POST["mail"],50)) {
@@ -61,14 +68,18 @@
     
 
     if ($confirmMdp === $mdp) {
-            // debug($_POST);
-            $enregistrement = $pdo->prepare("INSERT INTO user VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            $enregistrement->execute(
-            [$pseudo, $nom, $prenom, $mail, $mdp, $photo, $ville, $cp, $adresse, $genre, $role]);
-            header("Location:". URL . "Connexion.php?signal=successlog");
-        
+        // debug($_POST);
+        $enregistrement = $pdo->prepare("INSERT INTO user VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $resultat = $enregistrement->execute(
+        [$pseudo, $nom, $prenom, $mail, $mdp, $photo, $ville, $cp, $adresse, $genre, $role]);
+        if ($resultat) {
+            header("Location:". URL . "Connexion.php?message=inscr-success");
         } else {
-            header("Location:". URL . "inscription.php?signal=errormdp");
+            header("location:" . URL . "inscription.php?message=req-fail");
+            exit();
         };
+    } else {
+        header("Location:". URL . "inscription.php?message=errormdp");
+    };
     
 ?>
