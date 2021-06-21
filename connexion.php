@@ -7,11 +7,11 @@
         $msg = "<div class=\"alert alert-success w-50 mx-auto m-5 \" role=\"alert\">
         Vous avez bien été ajouté à la liste des utilisateurs !
         </div>";
-    } else if (isset($_GET["message"]) AND $_GET["message"] == "erreur-connexion") {
+    } elseif (isset($_GET["message"]) AND $_GET["message"] == "erreur-connexion") {
         $msg = "<div class=\"alert alert-danger w-50 mx-auto m-5 \" role=\"alert\">
         Votre pseudo ou votre mot de passe est inconnu 
         </div>";
-    }else if (isset($_GET["message"]) AND $_GET["message"] == "erreur-requete") {
+    }elseif (isset($_GET["message"]) AND $_GET["message"] == "erreur-requete") {
         $msg = "<div class=\"alert alert-danger w-50 mx-auto m-5 \" role=\"alert\">
         Veuillez vous reconnecter
         </div>";

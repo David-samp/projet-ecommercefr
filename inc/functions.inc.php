@@ -12,7 +12,7 @@ function debug(array $listeADebugger){
 
 // La fonction testInput sert a verifier si le pseudo rempli certains criteres
 // @param array $listeTest, $nbrCaractere
-// @return null
+// @return true | false
 function testInput($listeTest, $nbrCaractere) {
     if (strlen($listeTest)>=4 AND strlen($listeTest)<=$nbrCaractere) {
         return true;
@@ -21,4 +21,15 @@ function testInput($listeTest, $nbrCaractere) {
     };
 }
 
+
+// La fonction testCookie sert a verifier si un cookie existe
+// @param array $cookie
+// @return true | false
+function testCookie($cookie) {
+    if (isset($_COOKIE["$cookie"])) {
+        return true;
+    } else {
+        return false;
+    };
+};
 ?>

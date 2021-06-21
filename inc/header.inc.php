@@ -7,19 +7,44 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= URL; ?>inscription.php">Inscription</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= URL; ?>connexion.php">Connexion</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= URL; ?>profil.php">Profil</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= URL; ?>produit.php">Produit</a>
-                    </li>
-                </ul>             
+                    <?php 
+                        if (isset($_SESSION["is_connect"]) AND $_SESSION["is_connect"]==true){
+                            $pseudoLog = $_SESSION["pseudo"];
+                            echo "
+                                <li class=\"nav-item\">
+                                <a class=\"nav-link\" href="?><?= URL . "profil.php";?><?php echo ">Profil</a>
+                                </li>
+                                <li class=\"nav-item\">
+                                <a class=\"nav-link\" href="?><?= URL . "produit.php";?><?php echo ">Produit</a>
+                                </li>"
+                            ?>
+                            <?php 
+                                $rechercheRole = $pdo->prepare("SELECT pseudo FROM user WHERE pseudo=? AND role=1");
+                                $roleAdmin = $rechercheRole->execute([$pseudoLog]);
+                                if ($roleAdmin) {
+                                    echo "<li class=\"nav-item\">
+                                    <a class=\"nav-link\" href="?><?= URL . "admin.php";?><?php echo ">Administration</a>
+                                    </li>";
+                                };
+                            ?>
+                            <?php echo"
+                                <li class=\"nav-item\">
+                                <a class=\"nav-link\" href="?><?= URL . "deconnexion.php";?><?php echo ">Se déconnecter</a>
+                                </li>
+                            </ul>
+                            <span class=\"navbar-text\"> $pseudoLog</span>
+                            ";
+                        } else {
+                            echo "
+                                <li class=\"nav-item\">
+                                <a class=\"nav-link\" href="?><?= URL . "inscription.php"; ?><?php echo ">Inscription</a>
+                                </li>
+                                <li class='nav-item'>
+                                <a class='nav-link' href="?><?= URL . "connexion.php"; ?><?php echo ">Connexion</a>
+                                </li>
+                            </ul>";
+                        };
+                    ?>          
             </div>
         </div>
     </nav>

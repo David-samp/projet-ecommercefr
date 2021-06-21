@@ -15,6 +15,7 @@ $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 // Demarrer une session
 session_start();
 
+
 // On définit l'URL du projet
 define("URL", "http://localhost:8888/cours_php/19-projet/");
 
