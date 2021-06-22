@@ -3,6 +3,10 @@
     include("inc/init.inc.php");
     include("inc/functions.inc.php");
 
+    if (userIsConnect()){
+        header("Location:". URL . "profil.php");
+    };
+
     if (isset($_GET["message"]) AND $_GET["message"] == "inscr-success"){
         $msg = "<div class=\"alert alert-success w-50 mx-auto m-5 \" role=\"alert\">
         Vous avez bien été ajouté à la liste des utilisateurs !
@@ -15,7 +19,7 @@
         $msg = "<div class=\"alert alert-danger w-50 mx-auto m-5 \" role=\"alert\">
         Veuillez vous reconnecter
         </div>";
-    } 
+    };
 
     include("inc/head.inc.php");
     include("inc/header.inc.php");
@@ -26,9 +30,9 @@
     if (!empty($_POST)) {
         $pseudo = $_POST["pseudo"];
         $mdp = $_POST["mdp"];
-        $enregistrement = $pdo->prepare("SELECT pseudo FROM user WHERE pseudo=? AND mdp=?");
+        $enregistrement = $pdo->prepare("SELECT * FROM user WHERE pseudo=?");
         $resultat = $enregistrement ->execute(
-            [$pseudo,$mdp]
+            [$pseudo]
         );
     }
 ?>
@@ -53,10 +57,18 @@
 <?php
     if (isset($resultat)){
         if ($resultat AND $enregistrement->rowCount() != 0){
-            $url = URL . "index.php";
+            $maLigne = $enregistrement->fetch(PDO::FETCH_ASSOC);
+            $mdpBddCryptee = $maLigne["mdp"];
+            $resultatVerifMdp = password_verify($mdp, $mdpBddCryptee);
+            if($resultatVerifMdp){
+               $url = URL . "index.php";
             header('Location:' .$url );
             $_SESSION["is_connect"]=true;
-            $_SESSION["pseudo"]= $pseudo;
+            $_SESSION["pseudo"]= $pseudo; 
+            } else {
+                header("Location:". URL . "Connexion.php?message=erreur-connexion");
+            }
+            
         }else{
             header("Location:". URL . "Connexion.php?message=erreur-connexion");
         };

@@ -17,6 +17,7 @@
         $msg = "<div class=\"alert alert-danger w-50 mx-auto m-5 \" role=\"alert\">
         $retourMsg
     </div>";
+        
     }
 
     
@@ -27,7 +28,7 @@
 
     <main class="container">
         <h2 class="mb-3">Formulaire d'inscription</h2>
-            <form action="<?= URL; ?>traitement-inscription.php" method="post">
+            <form enctype="multipart/form-data" action="<?= URL; ?>traitement-inscription.php" method="post">
                 <div class="conteneurPseudo d-flex align-items-center col-6 mb-3">
                     <label class="form-label col-4 me-3" for="pseudo">Pseudo :</label>
                     <input class="form-control" type="text" name="pseudo" id="pseudo" placeholder="20 caractères maximum" <?php 

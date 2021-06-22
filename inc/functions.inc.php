@@ -32,4 +32,14 @@ function testCookie($cookie) {
         return false;
     };
 };
+
+
+function userIsConnect(){
+    if (isset($_SESSION["pseudo"])){
+        return true;
+    } else {
+        return false;
+    };
+
+}
 ?>

@@ -21,19 +21,32 @@
                             <?php 
                                 $rechercheRole = $pdo->prepare("SELECT pseudo FROM user WHERE pseudo=? AND role=1");
                                 $roleAdmin = $rechercheRole->execute([$pseudoLog]);
-                                if ($roleAdmin) {
+                                if ($roleAdmin AND $rechercheRole->rowCount() != 0) {
                                     echo "<li class=\"nav-item\">
-                                    <a class=\"nav-link\" href="?><?= URL . "admin.php";?><?php echo ">Administration</a>
+                                    <a class=\"nav-link\" href="?><?= URL . "admin";?><?php echo ">Administration</a>
                                     </li>";
                                 };
                             ?>
-                            <?php echo"
-                                <li class=\"nav-item\">
-                                <a class=\"nav-link\" href="?><?= URL . "deconnexion.php";?><?php echo ">Se déconnecter</a>
+                                <li class="nav-item">
+                                <a class="nav-link" href='?action=deconnexion'>Se déconnecter</a>
                                 </li>
                             </ul>
-                            <span class=\"navbar-text\"> $pseudoLog</span>
-                            ";
+                            <a class="navbar-text"><?=$pseudoLog . " "?>
+                            <?php 
+                                $recherchePhoto = $pdo->prepare("SELECT photo FROM user WHERE pseudo=?");
+                                $photo = $recherchePhoto->execute([$pseudoLog]);
+                                $infoPhoto=$recherchePhoto->fetch(PDO::FETCH_ASSOC);
+                                if (!empty($infoPhoto["photo"])) {
+                                
+                                
+                                    ?>
+                                    <img src="<?=URL;?>assets/imgs/<?=$infoPhoto["photo"]?>" alt="" width="30" height="30" class="m-1" >
+                                    <?php
+                                }
+                            ?>
+                            </a>
+                            
+                            <?php
                         } else {
                             echo "
                                 <li class=\"nav-item\">
